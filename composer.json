@@ -1,0 +1,15 @@
+{
+    "name": "root/zipdeploy",
+    "authors": [
+        {
+            "name": "Mikael Lindqvist",
+            "email": "li.mikael@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.2.*"
+    }
+}
