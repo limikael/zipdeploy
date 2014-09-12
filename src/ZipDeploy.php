@@ -7,14 +7,19 @@
 		private $key;
 		private $zipDir;
 		private $targetDir;
+		private $name;
+
+		public function ZipDeployTarget($name) {
+			$this->name=$name;
+			$this->targetDir=$name;
+			$this->zipDir="";
+		}
 
 		/**
 		 * Set key.
 		 */
 		public function setKey($value) {
 			$this->key=$value;
-			$this->targetDir=$value;
-			$this->getZipDir="";
 			return $this;
 		}
 
@@ -72,6 +77,7 @@
 			$this->targetsByName=array();
 			$this->inputFileName="php://input";
 			$this->tempDir=tempnam(sys_get_temp_dir(),"zip");
+			$this->tmpZipFileName="__uploaded.zip";
 		}
 
 		/**
@@ -110,8 +116,15 @@
 
 			$target->authenicate();
 
+			$copyRes=copy($this->inputFileName,$this->tmpZipFileName);
+			if ($copyRes!==TRUE)
+				throw new Exception("unable to copy...");
+
 			$zip=new ZipArchive();
-			$zip->open($this->inputFileName);
+			$openRes=$zip->open($this->tmpZipFileName);
+
+			if ($openRes!==TRUE)
+				throw new Exception("open failed: ".$openRes);
 
 			if (file_exists($target->getTargetDir())) {
 				if (!self::delTree($target->getTargetDir()))
@@ -128,6 +141,8 @@
 
 			if (file_exists($this->tempDir))
 				self::delTree($this->tempDir);
+
+			self::delTree($this->tmpZipFileName);
 		}
 
 		/**
