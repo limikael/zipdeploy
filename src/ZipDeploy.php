@@ -108,6 +108,9 @@
 		 * Dispatch.
 		 */
 		public function dispatch() {
+			if (!isset($_REQUEST["target"]))
+				return;
+
 			$targetName=$_REQUEST["target"];
 			$target=$this->targetsByName[$targetName];
 
@@ -116,9 +119,19 @@
 
 			$target->authenicate();
 
-			$copyRes=copy($this->inputFileName,$this->tmpZipFileName);
+			$content=file_get_contents($this->inputFileName);
+			//echo "here, size: ".strlen($content);
+
+			if (!$content || !strlen($content))
+            	throw new Exception("No POST input.");
+
+			$putRes=file_put_contents($this->tmpZipFileName,$content);
+			if (!$putRes)
+				throw new Exception("unable to copy ".print_r(error_get_last(),TRUE));
+
+			/*$copyRes=copy($this->inputFileName,$this->tmpZipFileName);
 			if ($copyRes!==TRUE)
-				throw new Exception("unable to copy...");
+				throw new Exception("unable to copy ".print_r(error_get_last(),TRUE));*/
 
 			$zip=new ZipArchive();
 			$openRes=$zip->open($this->tmpZipFileName);
@@ -134,7 +147,10 @@
 			if (file_exists($this->tempDir))
 				self::delTree($this->tempDir);
 
-			$zip->extractTo($this->tempDir);
+			$extractRes=$zip->extractTo($this->tempDir);
+			if (!$extractRes)
+				throw new Exception("unable to extract ".print_r(error_get_last(),TRUE));
+
 			$zip->close();
 
 			rename($this->tempDir."/".$target->getZipDir(),$target->getTargetDir());
@@ -143,6 +159,8 @@
 				self::delTree($this->tempDir);
 
 			self::delTree($this->tmpZipFileName);
+
+			echo "OK";
 		}
 
 		/**
