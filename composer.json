@@ -13,6 +13,6 @@
         "phpunit/phpunit": "4.2.*"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit test"
+        "test": "phpunit test"
     }
 }

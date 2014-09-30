@@ -29,6 +29,24 @@
 			$z->dispatch();
 		}
 
+		function testPutFile() {
+			$z=new ZipDeploy();
+
+			if (file_exists("helloworld.zip"))
+				unlink("helloworld.zip");
+
+			$_REQUEST["putfile"]="helloworld.zip";
+
+			$z->setInputFileName(__DIR__."/doc.zip");
+			$z->setPutFileEnabled();
+			$z->dispatch();
+
+			$this->assertTrue(file_exists("helloworld.zip"));
+
+			if (file_exists("helloworld.zip"))
+				unlink("helloworld.zip");
+		}
+
 		/**
 		 * @expectedException Exception
 		 */

@@ -69,6 +69,7 @@
 
 		private $targetsByName;
 		private $inputFileName;
+		private $putFileEnabled;
 
 		/**
 		 * Construct.
@@ -78,6 +79,7 @@
 			$this->inputFileName="php://input";
 			$this->tempDir=tempnam(sys_get_temp_dir(),"zip");
 			$this->tmpZipFileName="__uploaded.zip";
+			$this->putFileEnabled=FALSE;
 		}
 
 		/**
@@ -105,12 +107,40 @@
 		}
 
 		/**
+		 * Set put file enabled.
+		 */
+		public function setPutFileEnabled($value=TRUE) {
+			$this->putFileEnabled=$value;
+		}
+
+		/**
 		 * Dispatch.
 		 */
 		public function dispatch() {
-			if (!isset($_REQUEST["target"]))
-				return;
+			if (isset($_REQUEST["target"]))
+				$this->dispatchTarget();
 
+			if (isset($_REQUEST["putfile"]) && $this->putFileEnabled)
+				$this->dispatchPutFile();
+		}
+
+		/**
+		 * Dispatch put file.
+		 */
+		private function dispatchPutFile() {
+			$content=file_get_contents($this->inputFileName);
+
+			$putRes=file_put_contents($_REQUEST["putfile"], $content);
+			if (!$putRes)
+				throw new Exception("unable to copy ".print_r(error_get_last(),TRUE));
+
+			echo "OK";
+		}
+
+		/**
+		 * Dispatch target.
+		 */
+		private function dispatchTarget() {
 			$targetName=$_REQUEST["target"];
 			$target=$this->targetsByName[$targetName];
 
