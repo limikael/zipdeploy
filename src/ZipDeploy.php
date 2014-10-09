@@ -150,7 +150,8 @@
 			$target->authenicate();
 
 			if (sizeof($_FILES)) {
-				$key=array_keys($_FILES)[0];
+				$keys=array_keys($_FILES);
+				$key=$keys[0];
 				$content=file_get_contents($_FILES[$key]["tmp_name"]);
 			}
 
