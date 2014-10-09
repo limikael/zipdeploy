@@ -149,7 +149,13 @@
 
 			$target->authenicate();
 
-			$content=file_get_contents($this->inputFileName);
+			if (sizeof($_FILES)) {
+				$key=array_keys($_FILES)[0];
+				$content=file_get_contents($_FILES[$key]["tmp_name"]);
+			}
+
+			else
+				$content=file_get_contents($this->inputFileName);
 			//echo "here, size: ".strlen($content);
 
 			if (!$content || !strlen($content))
