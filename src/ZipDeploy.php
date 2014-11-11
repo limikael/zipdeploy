@@ -76,7 +76,7 @@
 			//print_r($removefiles);
 
 			foreach ($removefiles as $removefile) { 
-				if (!$this->isKeep($subdir."/".$removefile))
+				if (!$this->isKeep($subdir."/".$removefile) && !$this->isKeep($subdir))
 					ZipDeploy::delTree($this->to."/".$subdir."/".$removefile);
 			}
 		}
