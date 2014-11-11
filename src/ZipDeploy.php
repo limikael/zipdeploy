@@ -42,7 +42,10 @@
 		/**
 		 * Perform sync.
 		 */
-		public function sync($subdir="") {
+		public function sync($subdir="", $keep=FALSE) {
+			if ($this->isKeep($subdir))
+				$keep=TRUE;
+
 			$targetPath=$this->to."/".$subdir;
 
 			if (!file_exists($targetPath)) {
@@ -58,11 +61,11 @@
 
 			foreach ($files as $file) { 
 				if (is_dir($this->from."/".$subdir."/".$file)) {
-					$this->sync($subdir."/".$file);
+					$this->sync($subdir."/".$file, $keep);
 				}
 
 				else {
-					$res=copy($this->from."/".$subdir."/".$file,$this->to."/".$subdir."/".$file);
+					$res=copy($this->from."/".$subdir."/".$file, $this->to."/".$subdir."/".$file);
 					if (!$res)
 						throw new Exception("Unable to copy: ".$this->from."/".$subdir."/".$file);
 				}
@@ -76,7 +79,7 @@
 			//print_r($removefiles);
 
 			foreach ($removefiles as $removefile) { 
-				if (!$this->isKeep($subdir."/".$removefile) && !$this->isKeep($subdir))
+				if (!$this->isKeep($subdir."/".$removefile) && !$keep)
 					ZipDeploy::delTree($this->to."/".$subdir."/".$removefile);
 			}
 		}
