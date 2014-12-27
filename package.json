@@ -1,0 +1,21 @@
+{
+  "name": "zipdeploy",
+  "version": "0.0.0",
+  "description": "zipdeploy =========",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/limikael/zipdeploy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/limikael/zipdeploy/issues"
+  },
+  "homepage": "https://github.com/limikael/zipdeploy",
+  "dependencies": {
+    "minimist": "^1.1.0",
+    "node-uuid": "^1.4.2",
+    "qsub": "0.0.6",
+    "tinp": "0.0.1"
+  }
+}
