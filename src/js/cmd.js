@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var ZipDeploy = require("./ZipDeploy");
 var minimist = require("minimist");
 
