@@ -1,6 +1,6 @@
 <?php
 
-	require_once __DIR__."/../src/ZipDeploy.php";
+	require_once __DIR__."/../../src/php/ZipDeploy.php";
 
 	class ZipDeployTest extends \PHPUnit_Framework_TestCase {
 
