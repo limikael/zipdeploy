@@ -10,8 +10,8 @@ Introduction
 
 zipdeploy consists of two components. The server components accept a posted zip file and extracts it in a configured folder. The client component zips a folder together and uploads it to a url.
 
-On the server
--------------
+Server
+------
 
 The server component is written in php and is initialized like this:
 
@@ -23,4 +23,10 @@ The server component is written in php and is initialized like this:
     $zipDeploy->dispatch();
 ````
 
-The ZipDeploy.php file referenced in the `require_once` statement is (this)[https://github.com/limikael/zipdeploy/blob/master/src/php/ZipDeploy.php] one.
+The ZipDeploy.php file referenced in the `require_once` statement is [this](https://github.com/limikael/zipdeploy/blob/master/src/php/ZipDeploy.php) one. 
+
+If we save this file as publish.php, and make it available on a url, we can then post or upload files to:
+
+    http://our.server/publish.php?target=hello
+
+And have it extracted in the folder "hello".
