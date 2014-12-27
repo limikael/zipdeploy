@@ -1,7 +1,7 @@
 {
   "name": "zipdeploy",
-  "version": "0.0.0",
-  "description": "zipdeploy =========",
+  "version": "0.0.1",
+  "description": "Zip a directory and upload it to a url",
   "repository": {
     "type": "git",
     "url": "https://github.com/limikael/zipdeploy.git"
