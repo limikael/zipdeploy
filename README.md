@@ -38,4 +38,13 @@ And have it extracted in the folder "hello" relative to where the script is save
         setKey("my_secret_key");
 ````
 
-This will cause the contents of the uploaded zip file to be extracted to `/some/path/on/the/server`
+This will cause the contents of the uploaded zip file to be extracted to `/some/path/on/the/server`, and it will also require a key to be sent along with the request. The request will have to look like this:
+
+    http://our.server/publish.php?target=hello&key=my_secret_key
+
+Or else the server will reject it.
+
+Client
+------
+
+In order to talk to a server set up in the way specified above, there is also a client component. The client component comes in two flavors, one is a command line tool, the other is a grunt task. 
