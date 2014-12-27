@@ -20,5 +20,8 @@
   },
   "bin": {
     "zipdeploy": "./src/js/cmd.js"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
   }
 }
