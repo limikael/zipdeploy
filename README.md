@@ -29,4 +29,12 @@ If we save this file as publish.php, and make it available on a url, we can then
 
     http://our.server/publish.php?target=hello
 
-And have it extracted in the folder "hello".
+And have it extracted in the folder "hello". We can set some other options related to our target like this:
+
+````php
+    $zipDeploy->
+        createTarget("hello")->
+        setTargetDir("/some/path/on/the/server")->
+        setKey("my_secret_key");
+````
+
